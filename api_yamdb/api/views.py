@@ -12,13 +12,11 @@ from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
-
 from reviews.models import Category, Genre, Review, Title, User
 
 from .filters import TitleFilter
 from .mixins import CreateListDestroyViewSet
-from .permissions import (IsAdminOrSuperuser,
-                          IsAdminOrSuperuserOrReadOnly,
+from .permissions import (IsAdminOrSuperuser, IsAdminOrSuperuserOrReadOnly,
                           IsAuthorOrAdminOrModerator)
 from .serializers import (AdminRegistrationSerializer, CategorySerializer,
                           CommentSerializer, GenreSerializer,
@@ -82,6 +80,7 @@ class UserViewSet(viewsets.ModelViewSet):
             if getattr(request.user, '_prefetched_objects_cache', None):
                 request.user._prefetched_objects_cache = {}
             return Response(serializer.data)
+        return None
 
 
 class ReviewViewSet(viewsets.ModelViewSet):
